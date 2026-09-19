@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ví dụ 2</title>
+</head>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Hàng 0 Cột 1</th>
+                <th>Hàng 0 Cột 2</th>
+                <th>Hàng 0 Cột 3</th>
+                <th>Hàng 0 Cột 4</th>
+                <th>Hàng 0 Cột 5</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="6">
+                    Hàng 1 Cột 1
+                </td>
+                <td rowspan="4">
+                    Hàng 1 Cột 2
+                </td>
+                <td rowspan="3">
+                    Hàng 1 Cột 3
+                </td>
+                <td>
+                    Hàng 1 Cột 4
+                </td>
+                <td>
+                    Hàng 1 Cột 5
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Hàng 2 Cột 4
+                </td>
+                <td>
+                    Hàng 2 Cột 5
+            </tr>
+
+            <tr>
+                <td>
+                    Hàng 3 Cột 4
+                </td>
+                <td>
+                    Hàng 3 Cột 5
+                </td>
+            </tr>
+
+            <tr>
+                <td>Hàng 4 cột 3</td>
+                <td>Hàng 4 cột 4</td>
+                <td>Hàng 4 cột 5</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bai 2</title>
+</head>
+
+<body>
+    <video width="320" height="240" controls>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <table border="1">
+        <tr>
+            <th>Họ tên</th>
+            <th>Tuổi</th>
+            <th>Nghề nghiệp</th>
+        </tr>
+
+        <tr>
+            <td>Nguyễn Việt Ngọc</td>
+            <td>20</td>
+            <td>Sinh viên</td>
+        </tr>
+
+        <tr>
+            <td>Nguyễn Thu Hương</td>
+            <td>20</td>
+            <td>Sinh viên</td>
+        </tr>
+    </table>
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá tiền</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Bàn phím cơ</td>
+                <td>1</td>
+                <td>500.000</td>
+            </tr>
+            <tr>
+                <td>Chuột không dây</td>
+                <td>2</td>
+                <td>200.000</td>
+            </tr>
+        </tbody>
+        <tr>
+            <td>Tổng cộng</td>
+            <td>3</td>
+            <td>900.000</td>
+        </tr>
+        <tfoot>
+
+        </tfoot>
+    </table>
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Thứ</th>
+                <th>Buổi sáng</th>
+                <th>Buổi chiều</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Thứ Hai</td>
+                <td>Học HTML</td>
+                <td>Học CSS</td>
+            </tr>
+
+            <tr>
+                <td>Thứ Ba</td>
+                <td colspan="2" align="center">Nghỉ cả ngày</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Thứ</th>
+                <th>Buổi sáng</th>
+                <th>Buổi chiều</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Thứ Hai</td>
+                <td rowspan="2" align="center">Học HTML</td>
+                <td>Học CSS</td>
+            </tr>
+
+            <tr>
+                <td>Thứ Ba</td>
+                <td>Học JavaScript</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid white;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</body>
+
+</html>

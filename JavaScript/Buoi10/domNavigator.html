@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <ul id="menu">
+        <li>Trang chủ</li>
+        <li id="active-item">Sản phẩm</li>
+        <li>Liên hệ</li>
+    </ul>
+
+    <script>
+        const current = document.getElementById('active-item');
+
+        const menuList = current.parentElement;
+        console.log(menuList.id);
+
+        const previousItem = current.previousElementSibling;
+        console.log(previousItem.innerText);
+
+        const nextItem = current.nextElementSibling;
+        console.log(nextItem.innerText);
+    </script> -->
+
+
+    <!-- <table id="order-table">
+        <tr data-order-id="ORD_1001">
+            <td>Áo thun Polo</td>
+            <td>250.000đ</td>
+            <td><button class="btn-cancel">Hủy đơn</button></td>
+        </tr>
+
+        <tr data-order-id="ORD_1002">
+            <td>Quần jeans</td>
+            <td>300.000đ</td>
+            <td><button class="btn-cancel">Hủy đơn</button></td>
+        </tr>
+    </table>
+
+
+    <script>
+        function handleCancelOrder(event) {
+            const clickedButton = event.target;
+
+            const orderRow = clickedButton.closest('tr');
+
+            const orderId = orderRow.getAttribute('data-order-id');
+            console.log("Bạn vừa hủy đơn hàng có mã: " + orderId);
+            orderRow.remove();
+        }
+
+        const cancelButtons = document.getElementsByClassName('btn-cancel');
+        for (let i = 0; i < cancelButtons.length; i++) {
+            cancelButtons[i].onclick = handleCancelOrder;
+        }
+    </script> -->
+
+
+    <!-- <div id="wrapper">
+        <p>Nội dung 1</p>
+        <p>Nội dung 2</p>
+    </div>
+
+    <script>
+        const wrapper = document.getElementById('wrapper');
+        console.log(wrapper.children.length);
+        console.log(wrapper.childNodes.length);
+    </script> -->
+
+    <div class="cart-item">
+        <span class="quantity">1</span>
+        <button class="btn-increase">+</button>
+    </div>
+
+    <script>
+
+        const increaseButton = document.querySelector('.btn-increase');
+
+        increaseButton.onclick = function (event) {
+            const cartItem = event.target.closest('.cart-item');
+            const quantitySpan = cartItem.querySelector('.quantity');
+            let currentQuantity = parseInt(quantitySpan.innerText) || 0;
+            quantitySpan.innerText = currentQuantity + 1;
+        }
+    </script>
+</body>
+
+</html>

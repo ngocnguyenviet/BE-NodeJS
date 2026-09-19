@@ -1,0 +1,96 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="notification" class="notification">
+        Thông báo: Bạn có một tin nhắn mới!
+    </div>
+
+    <style>
+        .notification {
+            background-color: #66b347;
+            display: inline-block;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+    </style>
+
+    <script>
+        const notification = document.getElementById('notification');
+
+        function fadeOut() {
+            let opacity = 1;
+            const timer = setInterval(function () {
+                opacity -= 0.05;
+                if (opacity <= 0) {
+                    clearInterval(timer);
+                    notification.style.display = 'none';
+                } else {
+                    notification.style.opacity = opacity;
+                }
+            }, 50);
+        }
+
+        setTimeout(fadeOut, 3000);
+    </script>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="notification" class="notification">
+        Thông báo: Bạn có một tin nhắn mới!
+    </div>
+
+    <style>
+        .notification {
+            background-color: #66b347;
+            color: #fff;
+            display: inline-block;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            opacity: 1;
+
+            transition: opacity 0.5s ease;
+        }
+
+        .notification.fade {
+            opacity: 0;
+        }
+    </style>
+
+    <script>
+        const notification = document.getElementById('notification');
+
+        setTimeout(() => {
+            notification.classList.add('fade');
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 500);
+        }, 3000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="user-email" placeholder="Nhập địa chỉ email của bạn...">
+
+    <button id="check-btn">Kiểm tra</button>
+
+    <script>
+        const emailInput = document.getElementById('user-email');
+        const checkButton = document.getElementById('check-btn');
+
+        function handleCheckEmail() {
+            const emailValue = emailInput.value.trim();
+            if (emailValue === "") {
+                console.log("Bạn chưa nhập địa chỉ email");
+            } else {
+                console.log("Email bạn vừa nhập là: " + emailValue);
+            }
+        }
+
+        checkButton.onclick = handleCheckEmail;
+    </script>
+</body>
+
+</html>

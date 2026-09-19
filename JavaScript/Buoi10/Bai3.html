@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+            font-family: sans-serif;
+        }
+
+        #colorPicker {
+            width: 60px;
+            height: 30px;
+            padding: 2px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #previewBox {
+            width: 150px;
+            height: 90px;
+            background-color: #9e2a2b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="color" id="colorPicker" value="#9e2a2b">
+        <p>Xem trước: <span id="colorCode">#9e2a2b</span></p>
+
+        <div id="previewBox"></div>
+    </div>
+
+    <script>
+        const colorPicker = document.getElementById('colorPicker');
+        const previewBox = document.getElementById('previewBox');
+        const colorCode = document.getElementById('colorCode');
+
+        function updateColor() {
+            const selectedColor = colorPicker.value;
+            previewBox.style.backgroundColor = selectedColor;
+            colorCode.textContent = selectedColor;
+        }
+
+        colorPicker.addEventListener('input', updateColor);
+    </script>
+</body>
+
+</html>

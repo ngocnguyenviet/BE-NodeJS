@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        .slider-container {
+            width: 250px;
+            margin: 50px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+            accent-color: #007bff;
+        }
+
+        .slider-value {
+            font-size: 28px;
+            color: #222;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider-container">
+        <input type="range" id="myRange" min="0" max="100" value="86">
+        <div class="slide-value" id="rangeValue">86</div>
+    </div>
+
+    <script>
+        const myRange = document.getElementById('myRange');
+        const rangeValue = document.getElementById('rangeValue');
+
+        myRange.addEventListener('input', (e) => {
+            rangeValue.textContent = e.target.value;
+        });
+    </script>
+</body>
+
+</html>

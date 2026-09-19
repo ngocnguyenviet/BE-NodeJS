@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ví dụ thực hành CSS Position</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: #f0f2f5;
+            height: 2000px;
+            padding: 20px;
+        }
+
+        /* Ví dụ sticky */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            /*Dính chặt vào mép trên cùng khi cuộn tới*/
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weigth: bold;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Ví dụ relative & absolute kết hợp */
+
+        .product-card {
+            position: relative;
+            /* Làm mốc tọa độ cho phần tử con absolute*/
+
+            width: 250px;
+            height: 300px;
+            background-color: #eef2f6;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .badge-hot {
+            position: absolute;
+            /* Bay tự do trong khung của cha (product-card)*/
+            top: 10px;
+            /* Cách mép trên của cha 10px*/
+            right: 10px;
+            /* Cách mép phải của cha 10px*/
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        /* Ví dụ relative dịch chuyển*/
+        .relative-box {
+            position: relative;
+            top: 20px;
+            /* Dịch xuống dưới 20px so với vị trí gốc*/
+            left: 30px;
+            /*Dịch sang phải 30px so với vị trí gốc*/
+            background-color: #ffeeba;
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            margin-bottom: 50px;
+        }
+
+        /* Ví dụ fixed (Nút chat ghim ở góc màn hình*/
+        .fixed-chat-btn {
+            position: fixed;
+            bottom: 20px;
+            /* Ghim cách mép dưới màn hình 20px*/
+            right: 20px;
+            /*Ghim cách mép phải màn hình 20px*/
+            background-color: #0084ff color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-wright: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1.Thử nghiệm STICKY -->
+    <div class="sticky-header">
+        Thanh Menu(Sticky) - Thử cuộc chuột xuống dưới để xem tôi dính lại!
+    </div>
+
+    <div class="container">
+        <h2>Demo CSS position</h2>
+        <p style="color: gray; margin-bottom: 30px;"> (Mặc định các thẻ chữ này là
+            position: static)
+        </p>
+
+        <!-- 2. Thử nghiệm RELATIVE & ABSOLUTE -->
+        <h3>1. Kết hợp Relative & Absolute</h3>
+        <p style="margin-bottom: 10px;">Nhãn "HOT" màu đỏ được định
+            vị tuyệt đối theo khung của thẻ sản phẩm màu xám.
+        </p>
+        <div class="product-card">
+            <span class="badge-hot">HOT</span>
+            <div>
+                <h4>Khóa học Node.js</h4>
+                <p>Giá: $49.99</p>
+            </div>
+        </div>
+
+        <!-- 3.Thử nghiệm RELATIVE đơn lẻ-->
+        <h3>2. Dùng Relative đơn lẻ</h3>
+        <p>Hộp màu vàng bên dưới bị dịch chuyển lệch đi một chút,
+            nhưng khoảng trống ban đầu của nó vẫn được dữ lại.
+        </p>
+        <div class="relative-box">
+            Tôi là hộp Relative( Bị lệch: top 20px, left 30px)
+        </div>
+        <p> Đoạn chữ này đứng ngay dưới hộp màu vàng. Bạn sẽ thấy
+            nó không bị dồn lên vì hộp vàng vẫn giữ chỗ.
+        </p>
+    </div>
+
+    <!-- 4/ Thử nghiệm FIXED -->
+    <a href="#" class="fixed-chat-btn">Chat với chúng tôi (Fixed)</a>
+</body>
+
+</html>

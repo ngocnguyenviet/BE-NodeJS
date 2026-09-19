@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <ul id="my-list">
+        <li>Mục có sẵn</li>
+    </ul>
+
+    <script>
+        const list = document.getElementById('my-list');
+        const newItem = document.createElement('li');
+
+        newItem.textContent = "Mục mới được thêm vào";
+        list.appendChild(newItem);
+    </script> -->
+
+    <div id="product-container"></div>
+    <script>
+        const productsFromServer = [
+            { id: 101, name: "Bàn phím cơ AKKO", price: 1500000 },
+            { id: 102, name: "Chuột Logitech G102", price: 400000 }
+        ];
+
+        const container = document.getElementById('product-container');
+        const fragment = document.createDocumentFragment();
+
+        productsFromServer.forEach(product => {
+            const card = document.createElement('div');
+            card.classList.add('product-card');
+
+            const title = document.createElement('h3');
+            title.textContent = product.name;
+
+            const price = document.createElement('p');
+            price.textContent = "Giá: " + product.price + "đ";
+
+            card.appendChild(title);
+            card.appendChild(price);
+
+            fragment.appendChild(card);
+        });
+
+        container.appendChild(fragment);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        .chart-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            height: 220px;
+            width: 350px;
+            padding: 10px;
+            margin: 50px auto;
+            border-bottom: 2px solid #333;
+        }
+
+        .bar {
+            width: 50px;
+            background-color: #3b82f6;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.5s ease;
+        }
+
+        .bar:hover {
+            background-color: #2563eb;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="chart-container" id="chart"></div>
+    <script>
+        const data = [10, 20, 15, 30, 25];
+        const chart = document.getElementById('chart');
+        const scale = 6;
+
+        data.forEach(value => {
+            const bar = document.createElement('div');
+            bar.classList.add('bar');
+            bar.style.height = `${value * scale}px`;
+            chart.append(bar);
+        });
+    </script>
+</body>
+
+</html>

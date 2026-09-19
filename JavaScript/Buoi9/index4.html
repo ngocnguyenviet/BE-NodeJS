@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="fruit-list">
+        <li>Quả táo</li>
+    </ul>
+    <button id="add-fruit">Thêm Cam & Chuối</button>
+    <button id="remove-apple">Xóa quả Táo</button>
+
+    <script>
+        const fruitList = document.getElementById("fruit-list");
+        const addBtn = document.getElementById("add-fruit");
+        const removeBtn = document.getElementById("remove-apple");
+
+        addBtn.addEventListener("click", () => {
+            const newLi = document.createElement("li");
+
+            newLi.textContent = "Quả cam";
+        });
+    </script>
+</body>
+
+</html>

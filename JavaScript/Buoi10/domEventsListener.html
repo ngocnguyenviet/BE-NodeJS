@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <button id="checkout-btn">Thanh toán</button>
+    <script>
+        const checkoutBtn = document.getElementById('checkout-btn');
+        checkoutBtn.addEventListener('click', function () {
+            console.log("1. Hiển thị vòng xoay Loading ... ");
+        });
+
+        checkoutBtn.addEventListener('click', function () {
+            console.log("2. Thu thập dữ liệu và gửi request lên Server Node.js ..");
+        });
+    </script> -->
+    <ul id="product-list">
+        <li>Sản phẩm 1 <button class="btn-delete">Xóa</button></li>
+        <li>Sản phẩm 2 <button class="btn-delete">Xóa</button></li>
+    </ul>
+
+    <script>
+        const productList = document.getElementById('product-list');
+
+        productList.addEventListener('click', function (event) {
+            if (event.target.classList.contains('btn-delete')) {
+                const item = event.target.closest('li');
+                console.log("Đang xóa phần tử: ", item.textContent);
+                item.remove();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        li {
+            margin: 6px 0;
+            cursor: pointer;
+        }
+
+        button.btn-delete {
+            margin-left: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="todoInput" placeholder="Thêm ghi chú">
+        <button id="addBtn">Thêm</button>
+    </div>
+
+    <ul id="todoList">
+
+    </ul>
+
+    <script>
+        const todoInput = document.getElementById("todoInput");
+        const addBtn = document.getElementById("addBtn");
+        const todoList = document.getElementById("todoList");
+
+        function addTodo() {
+            const text = todoInput.value.trim();
+            if (text === '') return;
+
+            const li = document.createElement("li");
+            li.innerHTML = `<span>${text}</span> <button class="btn-delete">Xóa</button>`;
+
+            todoList.appendChild(li);
+            todoInput.value = '';
+            todoInput.focus();
+        }
+
+        addBtn.addEventListener('click', addTodo);
+        todoInput.addEventListener('keydown', (e) => {
+            if (e.key === "Enter") addTodo();
+        });
+
+        todoList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn-delete')) {
+                e.target.parentElement.remove();
+                return;
+            }
+
+            const li = e.target.closest('li');
+            if (li) {
+                li.querySelector('span').classList.toggle('completed');
+            }
+        });
+    </script>
+</body>
+
+</html>

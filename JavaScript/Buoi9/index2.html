@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<>
+    <div id="context-box">Văn bản <b>gốc</b></div>
+    <a id="my-link" href="https://example.com" title="Trang ví dụ">Bấm vào đây</a>
+    <img id="avatar" src="default.jpg" alt="Avatar mặc định" data-user-id="999">
+
+    <script>
+        const box = document.getElementById("context-box");
+        const link = document.getElementById("my-link");
+        const img = document.getElementById("avatar");
+
+        box.innerHTML = "Nội dung <i>đã được cập nhật</i> thành chữ nghiêng!";
+
+        link.href = "https://google.com";
+        link.target = "_blank";
+
+        img.setAttribute("src", "https://picsum.photos/200/200");
+        img.setAttribute("alt", "Ảnh ngẫu nhiên");
+        console.log("Thuộc tính alt vừa laaysL ", img.getAttribute("alt"));
+
+        console.log("User ID từ data-user-id:", img.dataset.userId);
+
+    </script>
+    </body>
+
+</html>

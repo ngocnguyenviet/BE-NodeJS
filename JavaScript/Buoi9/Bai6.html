@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="button" class="button">Click me</button>
+
+    <style>
+        .button {
+            width: 100px;
+            height: 50px;
+            background-color: #333333;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button.changed {
+            background-color: blueviolet;
+            width: 150px;
+            height: 70px;
+        }
+    </style>
+
+    <script>
+        const button = document.getElementById('button');
+
+        button.addEventListener('click', function () {
+            button.classList.toggle('changed');
+        });
+    </script>
+</body>
+
+</html>

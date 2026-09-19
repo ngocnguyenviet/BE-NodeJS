@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .card {
+            padding: 15px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+
+    <div id="card" class="card">Thẻ thông tin</div>
+    <button id="toggleBtn">Bật / Tắt Highlight</button>
+
+    <script>
+        const card = document.getElementById("card");
+        const toggleBtn = document.getElementById("toggleBtn");
+
+        card.style.borderRadius = "8px";
+        card.style.color = "blue";
+
+        card.classList.add("my-shadow");
+        card.classList.remove("my-shadow");
+
+        if (card.classList.contains("card")) {
+            console.log("Phần tử này đang có class: 'card'");
+        }
+
+        toggleBtn.addEventListener("click", () => {
+            card.classList.toggle("highlight");
+        });
+    </script>
+</body>
+
+</html>
