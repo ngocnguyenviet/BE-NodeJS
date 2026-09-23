@@ -19,8 +19,8 @@ findProductById(1, (error, result) => {
         console.log("Có lỗi: ", error);
         return;
     }
-
-    console.log("Kết quả tìm ID 1: ", result);
+    if (result === null) console.log("Khong tim thay san pham ID 99");
+    else console.log("Kết quả tìm ID 1: ", result);
 });
 
 
@@ -30,7 +30,8 @@ findProductById(99, (error, result) => {
         return;
     }
 
-    console.log("Kết quả tìm ID 99: ", result);
+    if (result === null) console.log("Khong tim thay san pham ID 99");
+    else console.log("Kết quả tìm ID 1: ", result);
 });
 
 console.log("Đã gửi yêu cầu tìm sản phẩm");

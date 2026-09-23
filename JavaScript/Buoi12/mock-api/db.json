@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Laptop",
+      "price": 20000000
+    },
+    {
+      "id": "v_4ljQpAbFo"
+    },
+    {
+      "name": "Add your name in the body",
+      "id": "UANYcVT4qVM"
+    },
+    {
+      "name": "Mouse",
+      "price": 300000,
+      "id": "_7zcAHebz78"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
