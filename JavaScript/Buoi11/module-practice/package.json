@@ -1,0 +1,8 @@
+{
+  "name": "module-practice",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js"
+  }
+}
