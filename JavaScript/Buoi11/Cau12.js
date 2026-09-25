@@ -26,6 +26,4 @@ function deleteProduct(productId) {
 }
 
 deleteProduct(2);
-// console.log(productsJSON);
-console.log(typeof (productsJSON));
-console.log(typeof (productsJS));
+console.log(productsJSON);
