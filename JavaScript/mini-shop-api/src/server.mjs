@@ -1,117 +1,53 @@
 import express from "express";
+import healthRouter from "./routes/health.routes.mjs";
+import productRouter from "./routes/product.routes.mjs";
 
 const app = express();
 
-const products = [
-    { id: 1, name: "Laptop", price: 20000000 },
-    { id: 2, name: "Mouse", price: 300000 },
-];
 
+//Chạy trước các route để ghi lại mọi request, rổi chuyển tiếp bằng next()
 app.use((req, res, next) => {
     console.log("Request:", req.method, req.path);
     next();
 });
 
-app.get("/products", (req, res) => {
-    let result = products;
 
-    const maxPriceText = req.query.maxPrice;
-    if (maxPriceText !== undefined) {
-        if (typeof maxPriceText !== "string" || maxPriceText.trim() === "") {
-            return res.status(400).json({ error: "maxPrice phải là số không âm" });
-        }
-
-        const maxPrice = Number(maxPriceText);
-        if (!Number.isFinite(maxPrice) || maxPrice < 0) {
-            return res.status(400).json({ error: "maxPrice phải là số không âm" });
-        }
-
-        result = result.filter((product) => product.price <= maxPrice);
-    }
-
-    const minPriceText = req.query.minPrice;
-    if (minPriceText !== undefined) {
-        if (typeof minPriceText !== "string" || minPriceText.trim() === "") {
-            return res.status(400).json({ error: "minPrice phải là số không âm" });
-        }
-
-        const minPrice = Number(minPriceText);
-        if (!Number.isFinite(minPrice) || minPrice < 0) {
-            return res.status(400).json({ error: "minPrice phải là số không âm" });
-        }
-
-        result = result.filter((product) => product.price >= minPrice);
-    }
-
-    return res.status(200).json(result);
-});
-
-
-app.get("/products/:id", (req, res) => {
-    const id = Number(req.params.id);
-
-    if (!Number.isInteger(id) || id <= 0) {
-        return res.status(400).json({ error: "ID phải là số nguyên dương" });
-    }
-
-    const product = products.find((item) => item.id === id);
-
-    if (product === undefined) {
-        return res.status(404).json({ error: "Không tìm thấy sản phẩm" });
-    }
-
-    return res.status(200).json(product);
-});
-
-app.get("/products/:id/price", (req, res) => {
-    const id = Number(req.params.id);
-    if (!Number.isInteger(id) || id <= 0) {
-        return res.status(400).json({ error: "ID phải là số nguyên dương" });
-    }
-
-    const product = products.find((item) => item.id === id);
-
-    if (product === undefined) {
-        return res.status(404).json({ error: "Không tìm thấy sản phẩm" });
-    }
-
-    return res.status(200).json({ id: product.id, price: product.price });
-});
-
-
-app.get("/health", (req, res) => {
-    res.status(200).json({ status: "ok" });
-});
-
+//Phân tích body JSON; request JSON sai cú pháp hoặc vượt quá limit sẽ đi tới
+// middleware xử lý lỗi
 app.use(express.json({ limit: "10kb" }));
 
+//Phân loại route xử lý
+app.use("/health", healthRouter);
+app.use("/products", productRouter);
 
-app.post("/products", (req, res) => {
-    const input = req.body;
+//Đặt sau tất cả routes; request chưa được xử lý sẽ nhận 404
+app.use((req, res) => {
+    return res.status(404).json({
+        path: req.path,
+        error: "Route không tồn tại"
+    });
+});
 
-    const validProduct =
-        input !== null &&
-        typeof input === "object" &&
-        !Array.isArray(input) &&
-        typeof input.name === "string" &&
-        input.name.trim().length > 0 &&
-        input.name.trim().length <= 50 &&
-        typeof input.price === "number" &&
-        Number.isFinite(input.price) &&
-        input.price >= 0;
 
-    if (!validProduct) {
-        return res.status(400).json({ error: "Dữ liệu sản phẩm không hợp lệ" });
+//Middleware bốn tham số nhận lỗi từ các bước phía trước, không chỉ mỗi body;
+app.use((err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err);
     }
 
-    const newProduct = {
-        id: products.length + 1,
-        name: input.name.trim(),
-        price: input.price,
-    };
+    if (err.type === "entity.parse.failed") {
+        return res.status(400).json({
+            code: "INVALID_JSON",
+            error: "Body phải là JSON hợp lệ",
+        });
+    }
 
-    products.push(newProduct);
-    return res.status(201).json(newProduct);
+    if (err.type === "entity.too.large") {
+        return res.status(413).json({ error: "Body vượt quá giới hạn 10kb" });
+    }
+
+    console.error(err);
+    return res.status(500).json({ error: "Lỗi server" });
 });
 
 
