@@ -1,15 +1,17 @@
 import { findProductById } from "../services/product.service.mjs";
 import { listProducts, createProduct, updateProductPrice, deleteProductById } from "../services/product.service.mjs";
-const POSTGRES_INTEGER_MAX = 2 ** 31 - 1;
-
+import { AppError } from "../errors/app-error.mjs";
 
 export async function getProductById(req, res) {
     const id = res.locals.productId;
-
     const product = await findProductById(id);
 
     if (product === undefined) {
-        return res.status(404).json({ error: "Không tìm thấy sản phẩm" });
+        throw new AppError(
+            404,
+            "PRODUCT_NOT_FOUND",
+            "Không tìm thấy sản phẩm"
+        );
     }
 
     return res.status(200).json(product);
@@ -94,22 +96,6 @@ export async function getProducts(req, res) {
 export async function createProductHandler(req, res) {
     const input = req.body;
 
-    const validProduct =
-        input !== null &&
-        typeof input === "object" &&
-        !Array.isArray(input) &&
-        typeof input.name === "string" &&
-        input.name.trim().length > 0 &&
-        input.name.trim().length <= 50 &&
-        typeof input.price === "number" &&
-        Number.isInteger(input.price) &&
-        input.price >= 0 &&
-        input.price <= POSTGRES_INTEGER_MAX;
-
-    if (!validProduct) {
-        return res.status(400).json({ error: "Dữ liệu sản phẩm không hợp lệ" });
-    }
-
     const newProduct = await createProduct(input.name.trim(), input.price);
     return res.status(201).json(newProduct);
 }
@@ -117,19 +103,6 @@ export async function createProductHandler(req, res) {
 export async function updateProductPriceHandler(req, res) {
     const id = res.locals.productId;
     const input = req.body;
-
-    const validInput =
-        input !== null &&
-        typeof input === "object" &&
-        !Array.isArray(input) &&
-        typeof input.price === "number" &&
-        Number.isInteger(input.price) &&
-        input.price >= 0 &&
-        input.price <= POSTGRES_INTEGER_MAX;
-
-    if (!validInput) {
-        return res.status(400).json({ error: "Dữ liệu không hợp lệ" });
-    }
 
     const result = await updateProductPrice(id, input.price);
     if (result === undefined) {
