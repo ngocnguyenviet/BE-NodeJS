@@ -1,0 +1,934 @@
+{
+  "actors": [
+    [
+      "ACT-01",
+      "Admin",
+      "Quản trị tòa nhà, tài khoản, căn hộ và tài chính trong phạm vi được cấp.",
+      "Ít nhất một tài khoản quản trị hoạt động. Mỗi người quản trị một tài khoản riêng; không cố định đúng 1.",
+      "Cấp/khóa tài khoản, gán quyền, quản lý dữ liệu, hóa đơn và đối soát.",
+      "Không mặc định được truy cập mọi tòa. Tránh tự khóa admin cuối cùng."
+    ],
+    [
+      "ACT-02",
+      "Đại diện căn hộ",
+      "Sử dụng dịch vụ và quản lý hồ sơ hộ theo quyền với căn hộ.",
+      "Bản đầu: một đại diện chính/căn. Tài khoản thuộc cá nhân; một cá nhân có thể liên kết nhiều căn.",
+      "Hộ dân cư, hóa đơn/thanh toán, thông báo, phản ánh; xem bãi xe.",
+      "Thay nhãn Chủ nhà. Không đồng nhất đại diện với chủ sở hữu; người thuê chỉ có quyền khi được cấp. Không dùng chung mật khẩu cả hộ."
+    ],
+    [
+      "ACT-03",
+      "Quản lý nhân sự",
+      "Quản lý hồ sơ phân công và lịch trực nhân viên.",
+      "Mỗi người quản lý một tài khoản riêng; số người theo thực tế.",
+      "Phân ca bảo vệ, lễ tân, lao công; xem lịch trong quyền.",
+      "Không mặc định ghi nhận khách/xe ra vào. Nhân viên được xếp lịch không nhất thiết đều cần tài khoản."
+    ],
+    [
+      "ACT-04",
+      "Đại diện hộ kinh doanh",
+      "Thanh toán khoản thuê và gửi đơn xin phép cho cơ sở được liên kết.",
+      "Mỗi hộ có đại diện chính. Tài khoản cá nhân liên kết hộ kinh doanh, không cấp mật khẩu dùng chung.",
+      "Xem/thanh toán phí thuê; gửi/theo dõi đơn; nhận thông báo phù hợp.",
+      "Thống nhất tên Người kinh doanh/Hộ kinh doanh. Phí thuê và đơn xin phép vẫn là Nice to have."
+    ],
+    [
+      "ACT-05",
+      "Kỹ thuật viên",
+      "Cập nhật vận hành thiết bị và tiến độ công việc được phân công.",
+      "Mỗi kỹ thuật viên một tài khoản; không cố định 1 tài khoản cho cả đội.",
+      "Điện từng tầng, thang máy, báo cháy; phản ánh được giao.",
+      "Chỉ sửa trong khu vực/công việc được cấp; không tự xác nhận thu tiền hoặc cấp quyền."
+    ],
+    [
+      "ACT-06",
+      "Nhân viên trực",
+      "Thực hiện nghiệp vụ tại cổng/hầm, ví dụ bảo vệ hoặc lễ tân.",
+      "Mỗi nhân viên thao tác một tài khoản riêng. Có thể có nhiều người/ca.",
+      "Ghi xe/khách vào ra theo quyền; xem sức chứa; vé theo quyền riêng.",
+      "Actor bổ sung. Quyền tại cổng và bãi xe có thể khác nhau theo phân công; không tự cấp quyền quản trị."
+    ]
+  ],
+  "features": [
+    [
+      "AUTH-01",
+      "Đăng nhập",
+      "Authentication",
+      "Must have",
+      "Tất cả người dùng",
+      "Gốc",
+      "WYP"
+    ],
+    [
+      "AUTH-02",
+      "Đăng xuất",
+      "Authentication",
+      "Must have",
+      "Tất cả người dùng",
+      "Gốc",
+      ""
+    ],
+    [
+      "AUTH-03",
+      "Tạo/cấp tài khoản",
+      "Authentication",
+      "Must have",
+      "Admin",
+      "Gốc: ảnh mới",
+      ""
+    ],
+    [
+      "AUTH-04",
+      "Quên mật khẩu",
+      "Authentication",
+      "Nice to have",
+      "Tất cả người dùng",
+      "Sửa ID trùng",
+      ""
+    ],
+    [
+      "USER-01",
+      "Phân quyền người dùng",
+      "User management",
+      "Must have",
+      "Admin",
+      "Gốc: ảnh mới",
+      ""
+    ],
+    [
+      "USER-02",
+      "Liên kết và thu hồi quyền đại diện căn hộ",
+      "User management",
+      "Must have",
+      "Admin",
+      "Gốc: ảnh mới",
+      ""
+    ],
+    [
+      "USER-03",
+      "Khóa/mở khóa tài khoản",
+      "User management",
+      "Must have",
+      "Admin",
+      "ID mới",
+      ""
+    ],
+    [
+      "ROOM-01",
+      "Cập nhật và xem hồ sơ thành viên hộ dân cư",
+      "Room management",
+      "Must have",
+      "Đại diện căn hộ",
+      "Gốc",
+      ""
+    ],
+    [
+      "ROOM-02",
+      "Quản lý trạng thái sử dụng và hồ sơ sở hữu căn hộ",
+      "Room management",
+      "Must have",
+      "Admin",
+      "Gốc",
+      ""
+    ],
+    [
+      "ROOM-03",
+      "Quản lý danh mục tòa, tầng, căn hộ",
+      "Room management",
+      "Must have",
+      "Admin",
+      "ID mới",
+      ""
+    ],
+    [
+      "UTIL-01",
+      "Theo dõi chỉ số điện nước từng nhà",
+      "Utilities",
+      "Must have",
+      "Admin",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "BILL-01",
+      "Theo dõi và đối chiếu công nợ",
+      "Billing",
+      "Must have",
+      "Admin",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "BILL-02",
+      "Thanh toán phí điện nước",
+      "Billing",
+      "Must have",
+      "Đại diện căn hộ",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "BILL-03",
+      "Thanh toán hóa đơn sửa chữa",
+      "Billing",
+      "Nice to have",
+      "Đại diện căn hộ",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "BILL-04",
+      "Thanh toán phí tòa nhà",
+      "Billing",
+      "Must have",
+      "Đại diện căn hộ",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "BILL-05",
+      "Thanh toán phí thuê hàng tháng",
+      "Billing",
+      "Nice to have",
+      "Đại diện hộ kinh doanh",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "BILL-06",
+      "Quản lý biểu phí và kỳ thu",
+      "Billing",
+      "Must have",
+      "Admin",
+      "ID mới",
+      ""
+    ],
+    [
+      "BILL-07",
+      "Lập và phát hành hóa đơn",
+      "Billing",
+      "Must have",
+      "Admin",
+      "ID mới",
+      ""
+    ],
+    [
+      "BILL-08",
+      "Xem hóa đơn và lịch sử thanh toán của mình",
+      "Billing",
+      "Must have",
+      "Đại diện căn hộ + Đại diện hộ kinh doanh",
+      "ID mới",
+      ""
+    ],
+    [
+      "BILL-09",
+      "Xác nhận và đối soát thanh toán",
+      "Billing",
+      "Must have",
+      "Admin",
+      "ID mới",
+      ""
+    ],
+    [
+      "PARK-01",
+      "Xem sơ đồ trạng thái ô đỗ",
+      "Parking",
+      "Nice to have",
+      "Đại diện căn hộ + Admin + Nhân viên trực",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "PARK-02",
+      "Xem số chỗ trống từng hầm",
+      "Parking",
+      "Must have",
+      "Đại diện căn hộ + Admin + Nhân viên trực",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "PARK-03",
+      "Quản lý vé tháng/vé lượt và ghi nhận xe vào/ra",
+      "Parking",
+      "Must have",
+      "Admin + Nhân viên trực",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "TECH-01",
+      "Cập nhật trạng thái điện và sự cố từng tầng",
+      "Technical operations",
+      "Must have",
+      "Kỹ thuật viên",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "TECH-02",
+      "Cập nhật tình trạng và sự cố thang máy",
+      "Technical operations",
+      "Nice to have",
+      "Kỹ thuật viên",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "TECH-03",
+      "Cập nhật tình trạng thiết bị báo cháy",
+      "Technical operations",
+      "Nice to have",
+      "Kỹ thuật viên",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "ALRT-01",
+      "Nhận nhắc hạn hóa đơn còn dư nợ",
+      "Alert",
+      "Must have",
+      "Đại diện căn hộ + Đại diện hộ kinh doanh",
+      "Gốc",
+      ""
+    ],
+    [
+      "ALRT-02",
+      "Nhận cảnh báo sự cố thang máy",
+      "Alert",
+      "Nice to have",
+      "Tất cả người dùng",
+      "Gốc",
+      ""
+    ],
+    [
+      "ALRT-03",
+      "Nhận cảnh báo sự kiện cháy đã xác nhận",
+      "Alert",
+      "Nice to have",
+      "Tất cả người dùng",
+      "Gốc",
+      ""
+    ],
+    [
+      "ANNC-01",
+      "Đăng thông báo toàn tòa nhà",
+      "Announcement",
+      "Must have",
+      "Admin",
+      "Gốc",
+      ""
+    ],
+    [
+      "ANNC-02",
+      "Nhận và đọc thông báo đúng đối tượng",
+      "Announcement",
+      "Must have",
+      "Tất cả người dùng",
+      "Gốc",
+      ""
+    ],
+    [
+      "FDBK-01",
+      "Feedback và phản ánh cho tòa nhà",
+      "Feedback",
+      "Must have",
+      "Đại diện căn hộ",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "FDBK-02",
+      "Tiếp nhận, phân công và giải quyết phản ánh",
+      "Feedback",
+      "Must have",
+      "Admin + Kỹ thuật viên",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "HR-01",
+      "Quản lý lịch ca trực và phân công nhân viên",
+      "Staff scheduling",
+      "Nice to have",
+      "Quản lý nhân sự",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "REQ-01",
+      "Làm đơn xin phép online",
+      "Requests",
+      "Nice to have",
+      "Đại diện hộ kinh doanh",
+      "Đề xuất",
+      ""
+    ],
+    [
+      "REQ-02",
+      "Xem xét và duyệt/từ chối đơn xin phép",
+      "Requests",
+      "Nice to have",
+      "Admin",
+      "ID mới",
+      ""
+    ],
+    [
+      "VISIT-01",
+      "Ghi nhận lượt khách vào/ra",
+      "Visitor management",
+      "Nice to have",
+      "Nhân viên trực",
+      "Đề xuất",
+      ""
+    ]
+  ],
+  "stories": [
+    [
+      "US-001",
+      "AUTH-01",
+      "Tất cả người dùng",
+      "Là người dùng, tôi muốn đăng nhập tài khoản để truy cập các chức năng theo quyền của mình.",
+      "1. Thông tin hợp lệ và tài khoản đang hoạt động thì đăng nhập thành công.\n2. Thiếu thông tin, sai mật khẩu hoặc tài khoản bị khóa thì báo lỗi và không tạo phiên.\n3. Sau đăng nhập, hiển thị đúng danh tính và các chức năng theo quyền.\n4. Truy cập chức năng bảo vệ khi chưa đăng nhập bị từ chối ở backend.",
+      "FE: Form đăng nhập, lỗi nhập liệu, điều hướng.\nBE: Xác thực tài khoản, kiểm tra mật khẩu, tạo phiên và kiểm tra phiên."
+    ],
+    [
+      "US-002",
+      "AUTH-02",
+      "Tất cả người dùng",
+      "Là người dùng, tôi muốn đăng xuất để kết thúc phiên sử dụng trên thiết bị hiện tại.",
+      "1. Đăng xuất thành công thì quay về màn hình đăng nhập.\n2. Phiên cũ không gọi được API yêu cầu xác thực.\n3. Lặp thao tác đăng xuất không tạo lỗi nghiệp vụ hoặc khôi phục phiên.",
+      "FE: Nút đăng xuất, xóa trạng thái đăng nhập.\nBE: Thu hồi phiên hiện tại và xóa cookie/thông tin phiên tương ứng."
+    ],
+    [
+      "US-003",
+      "AUTH-04",
+      "Tất cả người dùng",
+      "Là người dùng, tôi muốn đặt lại mật khẩu khi quên để lấy lại quyền truy cập tài khoản.",
+      "1. Gửi yêu cầu khôi phục bằng kênh định danh đã được nhóm chốt (D03).\n2. Thông báo gửi yêu cầu không tiết lộ tài khoản có tồn tại hay không.\n3. Mã/link đặt lại có thời hạn, chỉ dùng một lần; mã sai hoặc hết hạn bị từ chối.\n4. Mật khẩu mới hợp lệ dùng đăng nhập được, mật khẩu cũ không còn dùng được.",
+      "FE: Màn hình yêu cầu và đặt lại mật khẩu.\nBE: Tạo/kiểm tra token khôi phục, gửi qua kênh đã chốt, lưu mật khẩu đã băm."
+    ],
+    [
+      "US-004",
+      "USER-01",
+      "Admin",
+      "Là admin, tôi muốn gán hoặc thu hồi vai trò của tài khoản để phân công quyền chức năng phù hợp.",
+      "1. Chỉ admin được quản lý quyền trong phạm vi được cấp.\n2. Vai trò phải thuộc danh mục; một người có thể có nhiều vai trò nếu được cấp.\n3. Quyền đã thay đổi được kiểm tra lại ở request tiếp theo và có audit người/thời điểm.\n4. Vai trò đại diện không tự cho quyền với mọi căn/hộ kinh doanh; phải có liên kết tài nguyên.",
+      "FE: Form vai trò theo tài khoản.\nBE: Phân quyền nhiều vai trò, kiểm tra quyền hiện hành, audit và giới hạn phạm vi."
+    ],
+    [
+      "US-005",
+      "USER-01",
+      "Tất cả người dùng",
+      "Là tất cả người dùng, tôi muốn truy cập chức năng và dữ liệu trong quyền được cấp để thao tác đúng phạm vi công việc và căn hộ.",
+      "1. Mỗi API kiểm tra vai trò và tòa/căn/hộ kinh doanh liên quan theo D01.\n2. Đổi ID trên URL/body không xem/sửa được dữ liệu ngoài quyền.\n3. Một tài khoản có thể liên kết nhiều căn; mỗi request vẫn kiểm tra căn đang thao tác.\n4. Mất liên kết hoặc bị khóa thì request tiếp theo không tiếp tục dùng quyền cũ.",
+      "FE: Menu và ngữ cảnh căn/hộ đang thao tác.\nBE: Policy theo danh tính đã xác thực và liên kết còn hiệu lực."
+    ],
+    [
+      "US-006",
+      "ROOM-01",
+      "Đại diện căn hộ",
+      "Là đại diện căn hộ, tôi muốn cập nhật thành viên hộ đang cư trú để hồ sơ căn hộ phản ánh đúng thực tế.",
+      "1. Chỉ cập nhật hộ thuộc căn có liên kết đại diện còn hiệu lực.\n2. Thông tin bắt buộc, quan hệ và ngày cư trú theo D02; dữ liệu sai bị từ chối.\n3. Không tự đổi chủ sở hữu, người đại diện hoặc quyền tài khoản qua form thành viên.\n4. Lưu lịch sử thay đổi; cập nhật trực tiếp hay admin duyệt vẫn cần chốt tại D02.",
+      "FE: Danh sách/form thành viên và lịch sử.\nBE: Validation, quyền theo căn, lưu cư trú và lịch sử; tách khỏi gán quyền."
+    ],
+    [
+      "US-007",
+      "ROOM-01",
+      "Đại diện căn hộ",
+      "Là đại diện căn hộ, tôi muốn xem danh sách và lịch sử thành viên hộ của mình để kiểm tra hồ sơ cư trú đã cập nhật.",
+      "1. Hiển thị thành viên hiện tại của đúng căn hộ được phép truy cập.\n2. Hiển thị lịch sử chuyển đến/chuyển đi theo phạm vi dữ liệu nhóm chốt.\n3. Hộ chưa có thành viên thì hiển thị trạng thái rỗng.\n4. Không xem được hộ của căn khác bằng cách đổi ID.",
+      "FE: Danh sách và lịch sử cư trú.\nBE: Truy vấn thành viên hiện tại/lịch sử, kiểm tra phạm vi dữ liệu."
+    ],
+    [
+      "US-008",
+      "ROOM-02",
+      "Admin",
+      "Là admin, tôi muốn quản lý trạng thái sử dụng và hồ sơ sở hữu căn hộ để theo dõi đúng tình hình căn hộ và lịch sử.",
+      "1. Tách tình trạng sử dụng căn (trống/đang ở/cho thuê theo D02) khỏi thông tin chủ sở hữu.\n2. Đổi chủ sở hữu có thời điểm hiệu lực và giữ được lịch sử.\n3. Không xóa hóa đơn/cư trú cũ, không tự chuyển quyền tài khoản chỉ bằng đổi một nhãn trạng thái.\n4. Nếu cần trạng thái mua/bán thì dùng trường/quy trình riêng theo D02; chưa gồm đặt cọc/thanh toán mua nhà.",
+      "FE: Hồ sơ căn, trạng thái sử dụng và lịch sử sở hữu.\nBE: Validation trạng thái/quan hệ, lịch sử sở hữu và audit."
+    ],
+    [
+      "US-009",
+      "UTIL-01",
+      "Admin",
+      "Là admin, tôi muốn theo dõi và nhập chỉ số điện nước theo căn hộ và kỳ để có dữ liệu đúng để tính phí sử dụng.",
+      "1. Chọn căn hộ, đồng hồ/loại dịch vụ và kỳ để xem chỉ số đầu/cuối, mức tiêu thụ.\n2. Chỉ số hợp lệ, không âm; chỉ số cuối không nhỏ hơn đầu trừ trường hợp thay/reset đồng hồ theo D04.\n3. Không tạo bản ghi trùng cùng đồng hồ và kỳ; sửa dữ liệu có lịch sử.\n4. Kỳ đã chốt hóa đơn tuân theo quy tắc sửa/chốt tại D04.",
+      "FE: Bảng theo kỳ, form nhập/sửa chỉ số.\nBE: Validation, lưu chỉ số, tính tiêu thụ, chống trùng và lịch sử sửa."
+    ],
+    [
+      "US-010",
+      "TECH-01",
+      "Kỹ thuật viên",
+      "Là kỹ thuật viên, tôi muốn cập nhật tình trạng điện của từng tầng để ban quản lý có thông tin vận hành mới nhất.",
+      "1. Chọn đúng tầng và trạng thái trong danh mục tại D07.\n2. Lưu trạng thái, mô tả sự cố, người cập nhật và thời điểm.\n3. Đọc lại thấy trạng thái mới cùng lịch sử thay đổi.\n4. Người không được phân quyền kỹ thuật không được cập nhật.",
+      "FE: Danh sách tầng, form trạng thái điện.\nBE: Cập nhật trạng thái tầng, phân quyền và lịch sử sự cố."
+    ],
+    [
+      "US-011",
+      "TECH-02",
+      "Kỹ thuật viên",
+      "Là kỹ thuật viên, tôi muốn cập nhật tình trạng từng thang máy để người dùng biết thiết bị đang hoạt động hay gặp sự cố.",
+      "1. Chọn thang máy tồn tại và trạng thái hợp lệ tại D07.\n2. Lưu mô tả, người cập nhật, thời điểm và lịch sử trạng thái.\n3. Chỉ kỹ thuật viên được cấp quyền mới cập nhật được.\n4. Trạng thái dùng làm nguồn cảnh báo ALRT-02; nguồn nhập tay/thiết bị được chốt tại D07.",
+      "FE: Danh sách thang máy và form tình trạng.\nBE: Trạng thái tài sản, lịch sử và sự kiện phục vụ cảnh báo."
+    ],
+    [
+      "US-012",
+      "TECH-03",
+      "Kỹ thuật viên",
+      "Là kỹ thuật viên, tôi muốn cập nhật tình trạng hệ thống báo cháy để theo dõi thiết bị báo cháy trong tòa nhà.",
+      "1. Chọn thiết bị/khu vực tồn tại và trạng thái thiết bị theo D07.\n2. Ghi người cập nhật, thời điểm, mô tả và lịch sử.\n3. Phân biệt tình trạng thiết bị với sự kiện cháy cần cảnh báo.\n4. Nguồn xác nhận sự kiện cháy và quyền kích hoạt cảnh báo được chốt tại D07.",
+      "FE: Form tình trạng hệ thống báo cháy.\nBE: Lưu tình trạng thiết bị và lịch sử; tách sự kiện cháy khỏi trạng thái bảo trì."
+    ],
+    [
+      "US-013",
+      "PARK-01",
+      "Đại diện căn hộ + Admin + Nhân viên trực",
+      "Là đại diện căn hộ, admin hoặc nhân viên trực, tôi muốn xem sơ đồ trạng thái các ô đỗ trong hầm để nhận biết vị trí trống, đang dùng hoặc không khả dụng.",
+      "1. Chọn hầm để xem mã ô và trạng thái với chú giải rõ ràng.\n2. Trạng thái khớp dữ liệu từng ô; hiển thị thời điểm cập nhật.\n3. Không cho chủ nhà thấy thông tin cá nhân/biển số ngoài phạm vi quyền.\n4. Chưa có dữ liệu ô thì báo chưa có dữ liệu; map không tự tạo tính năng đặt chỗ.",
+      "FE: Sơ đồ ô đỗ, chú giải, chọn hầm.\nBE: Danh mục ô, truy vấn trạng thái và lọc thông tin theo quyền."
+    ],
+    [
+      "US-014",
+      "PARK-02",
+      "Đại diện căn hộ + Admin + Nhân viên trực",
+      "Là đại diện căn hộ, admin hoặc nhân viên trực, tôi muốn xem số chỗ trống từng hầm để biết khả năng tiếp nhận xe hiện tại.",
+      "1. Hiển thị sức chứa, số xe/ô đang sử dụng và số chỗ còn trống theo mô hình D06.\n2. Số liệu thay đổi theo lượt vào/ra hợp lệ; không âm và không vượt sức chứa.\n3. Có thời điểm cập nhật; dữ liệu chưa có không được hiển thị như hầm trống hoàn toàn.\n4. Phân biệt sức chứa xe thực tế với hạn mức vé tháng theo D06.",
+      "FE: Danh sách hầm và số chỗ trống.\nBE: Tổng hợp sức chứa/lượt đang mở hoặc trạng thái ô theo mô hình đã chốt."
+    ],
+    [
+      "US-015",
+      "PARK-03",
+      "Admin + Nhân viên trực",
+      "Là admin hoặc nhân viên trực, tôi muốn quản lý và phân loại vé tháng, vé lượt để áp dụng đúng loại vé cho xe gửi trong hầm.",
+      "1. Vé tháng gắn xe, thời hạn và trạng thái; ngày kết thúc không trước ngày bắt đầu.\n2. Vé lượt gắn với lượt gửi; mã vé không trùng.\n3. Xe/vé hết hạn hoặc không hợp lệ được xử lý theo D06, không tự coi còn hiệu lực.\n4. Tạo/gia hạn/hủy vé theo quyền riêng tại D06; không mặc định nhân viên trực được sửa biểu phí.",
+      "FE: Form vé và danh sách theo loại/trạng thái.\nBE: CRUD vé, hiệu lực, mã duy nhất và liên kết xe/lượt gửi."
+    ],
+    [
+      "US-016",
+      "PARK-03",
+      "Nhân viên trực",
+      "Là nhân viên trực, tôi muốn ghi nhận xe vào hầm để mở lượt gửi và cập nhật số chỗ đang sử dụng.",
+      "1. Ghi nhận xe, hầm, loại/mã vé và thời điểm vào.\n2. Từ chối mở thêm lượt nếu xe đã có lượt chưa kết thúc trái quy tắc D06.\n3. Không nhận vượt sức chứa; hai request đồng thời không chiếm cùng chỗ cuối.\n4. Gửi lại cùng yêu cầu không tạo hai lượt gửi.",
+      "FE: Form xe vào và kết quả tiếp nhận.\nBE: Transaction mở lượt, kiểm tra vé/sức chứa, chống lặp và cập nhật đồng thời."
+    ],
+    [
+      "US-017",
+      "PARK-03",
+      "Nhân viên trực",
+      "Là nhân viên trực, tôi muốn ghi nhận xe ra hầm để kết thúc đúng lượt gửi và giải phóng chỗ.",
+      "1. Tìm được lượt gửi đang mở của xe/vé; không có thì báo lỗi.\n2. Thời điểm ra không trước thời điểm vào.\n3. Kết thúc lượt một lần; request lặp không giải phóng chỗ hai lần.\n4. Nếu tính phí vé lượt, áp dụng biểu phí theo D06 và ghi lại kết quả.",
+      "FE: Form xe ra, thông tin lượt và phí nếu áp dụng.\nBE: Đóng lượt trong transaction, tính phí nếu thuộc phạm vi, cập nhật sức chứa."
+    ],
+    [
+      "US-018",
+      "BILL-01",
+      "Admin",
+      "Là admin, tôi muốn xem danh sách công nợ theo căn hộ và kỳ để xác định các khoản chưa thu và quá hạn.",
+      "1. Lọc theo tòa/căn, kỳ và trạng thái; có phân trang khi nhiều dữ liệu.\n2. Hiển thị tổng phải thu, đã thu, còn nợ và hạn thanh toán.\n3. Công nợ tính từ hóa đơn và thanh toán đã xác nhận, không gồm khoản chờ xác nhận.\n4. Không có hóa đơn thì hiển thị rỗng; hóa đơn hủy xử lý theo D05.",
+      "FE: Bảng công nợ và bộ lọc.\nBE: Truy vấn/tổng hợp hóa đơn–thanh toán, phân trang và quyền admin."
+    ],
+    [
+      "US-019",
+      "BILL-01",
+      "Admin",
+      "Là admin, tôi muốn xem chi tiết hóa đơn và lịch sử thu tiền của một căn để đối chiếu nguyên nhân số dư công nợ.",
+      "1. Hiển thị từng khoản phí, kỳ thu, tổng tiền và các khoản đã xác nhận.\n2. Tổng còn nợ đối chiếu được với danh sách công nợ.\n3. Mỗi khoản thu có mã tham chiếu, thời điểm, phương thức và nguồn/người xác nhận.\n4. Không sửa số dư trực tiếp để bỏ qua hóa đơn hoặc giao dịch.",
+      "FE: Chi tiết hóa đơn, lịch sử giao dịch.\nBE: Truy vấn chi tiết, phân bổ thanh toán nếu áp dụng và audit nguồn xác nhận."
+    ],
+    [
+      "US-020",
+      "BILL-02",
+      "Đại diện căn hộ",
+      "Là đại diện căn hộ, tôi muốn thanh toán phí điện nước để hoàn tất nghĩa vụ phí sử dụng của căn hộ.",
+      "1. Chỉ xem và yêu cầu thanh toán khoản phí thuộc căn/hợp đồng trong quyền.\n2. Hiển thị kỳ, khoản phí, số còn phải trả; số tiền do backend xác định.\n3. Theo phương thức tại D05; chỉ ghi nhận đã trả khi backend nhận xác nhận hợp lệ.\n4. Gửi lặp request/xác nhận không ghi nhận thu tiền hai lần.\n5. Thất bại hoặc hủy không tăng số đã trả; xem lại được kết quả và lịch sử.",
+      "FE: Danh sách/chi tiết phí điện nước, thao tác trả tiền và trạng thái.\nBE: Kiểm tra quyền/số dư, ghi nhận giao dịch theo D05, chống lặp và cập nhật công nợ trong transaction."
+    ],
+    [
+      "US-021",
+      "BILL-03",
+      "Đại diện căn hộ",
+      "Là đại diện căn hộ, tôi muốn thanh toán hóa đơn sửa chữa để chi trả khoản sửa chữa đã được xác nhận.",
+      "1. Chỉ xem và yêu cầu thanh toán khoản phí thuộc căn/hợp đồng trong quyền.\n2. Hiển thị kỳ, khoản phí, số còn phải trả; số tiền do backend xác định.\n3. Theo phương thức tại D05; chỉ ghi nhận đã trả khi backend nhận xác nhận hợp lệ.\n4. Gửi lặp request/xác nhận không ghi nhận thu tiền hai lần.\n5. Thất bại hoặc hủy không tăng số đã trả; xem lại được kết quả và lịch sử.",
+      "FE: Danh sách/chi tiết hóa đơn sửa chữa, thao tác trả tiền và trạng thái.\nBE: Kiểm tra quyền/số dư, ghi nhận giao dịch theo D05, chống lặp và cập nhật công nợ trong transaction."
+    ],
+    [
+      "US-022",
+      "BILL-04",
+      "Đại diện căn hộ",
+      "Là đại diện căn hộ, tôi muốn thanh toán phí tòa nhà để hoàn tất khoản phí quản lý/dịch vụ đến hạn.",
+      "1. Chỉ xem và yêu cầu thanh toán khoản phí thuộc căn/hợp đồng trong quyền.\n2. Hiển thị kỳ, khoản phí, số còn phải trả; số tiền do backend xác định.\n3. Theo phương thức tại D05; chỉ ghi nhận đã trả khi backend nhận xác nhận hợp lệ.\n4. Gửi lặp request/xác nhận không ghi nhận thu tiền hai lần.\n5. Thất bại hoặc hủy không tăng số đã trả; xem lại được kết quả và lịch sử.",
+      "FE: Danh sách/chi tiết phí tòa nhà, thao tác trả tiền và trạng thái.\nBE: Kiểm tra quyền/số dư, ghi nhận giao dịch theo D05, chống lặp và cập nhật công nợ trong transaction."
+    ],
+    [
+      "US-023",
+      "ALRT-01",
+      "Đại diện căn hộ + Đại diện hộ kinh doanh",
+      "Là đại diện căn hộ hoặc đại diện hộ kinh doanh, tôi muốn nhận nhắc hạn hóa đơn còn dư nợ để chủ động thanh toán các khoản đến hạn.",
+      "1. Chỉ nhắc hóa đơn thuộc căn/hộ kinh doanh có liên kết còn hiệu lực và còn dư nợ.\n2. Nội dung có mã hóa đơn, số còn nợ, hạn trả và liên kết chi tiết.\n3. Lịch/kênh gửi theo D08; job chạy lại không gửi trùng cùng lần nhắc.\n4. Không nhắc hóa đơn đã trả đủ hoặc đã hủy; phí thuê chỉ áp dụng nếu triển khai BILL-05.",
+      "FE: Danh sách/chi tiết nhắc hạn.\nBE: Job lọc hóa đơn chưa trả, liên kết người nhận và chống gửi trùng."
+    ],
+    [
+      "US-024",
+      "ALRT-02",
+      "Tất cả người dùng",
+      "Là người dùng, tôi muốn nhận cảnh báo tình trạng thang máy để biết thang máy nào cần tránh hoặc đã hoạt động lại.",
+      "1. Cảnh báo chỉ gửi tới người dùng thuộc phạm vi tòa/khu vực bị ảnh hưởng.\n2. Hiển thị thang máy, vị trí, tình trạng và thời điểm phát sinh.\n3. Sự kiện từ TECH-02 hoặc nguồn đã chốt tại D07; không tạo thông tin khi chưa có nguồn.\n4. Cập nhật khôi phục không để cảnh báo cũ hiển thị như sự cố đang diễn ra.",
+      "FE: Hiển thị cảnh báo và trạng thái hiện tại.\nBE: Xử lý sự kiện thang máy, chọn người nhận, trạng thái cảnh báo và chống lặp."
+    ],
+    [
+      "US-025",
+      "ALRT-03",
+      "Tất cả người dùng",
+      "Là người dùng, tôi muốn nhận cảnh báo khi có sự kiện cháy được xác nhận để nhận biết khu vực và thông tin sự cố kịp thời.",
+      "1. Chỉ tạo cảnh báo từ nguồn/người có quyền được chốt tại D07.\n2. Hiển thị khu vực, thời điểm, nguồn và trạng thái sự kiện.\n3. Phân phối tới người dùng thuộc phạm vi ảnh hưởng qua kênh đã chốt.\n4. Sự kiện trùng không tạo nhiều cảnh báo giống nhau; có cập nhật kết thúc/đính chính.",
+      "FE: Màn hình cảnh báo rõ khu vực và thời điểm.\nBE: Tiếp nhận/kiểm tra sự kiện, phân phối và lưu lịch sử cảnh báo theo D07."
+    ],
+    [
+      "US-026",
+      "ANNC-01",
+      "Admin",
+      "Là admin, tôi muốn đăng thông báo cho toàn tòa nhà để truyền đạt thông tin chung đến đúng người nhận.",
+      "1. Thông báo có tiêu đề, nội dung, tòa nhà và nhóm nhận; thiếu dữ liệu bắt buộc bị từ chối.\n2. Chỉ admin trong phạm vi tòa được đăng.\n3. Đăng thành công thì người nhận thuộc tòa xem được; tòa khác không tự nhận.\n4. Lưu người đăng và thời điểm; cách sửa/thu hồi sau đăng theo D08.",
+      "FE: Form soạn, xem trước và danh sách thông báo.\nBE: Validation, quyền theo tòa, lưu và phân phối thông báo."
+    ],
+    [
+      "US-027",
+      "ANNC-02",
+      "Tất cả người dùng",
+      "Là tất cả người dùng, tôi muốn nhận và đọc thông báo phù hợp với mình để nắm thông tin của tòa nhà và công việc liên quan.",
+      "1. Admin chọn đối tượng nhận theo tòa/vai trò; chỉ người trong đối tượng nhận xem được.\n2. Danh sách/chi tiết hiển thị tiêu đề, nội dung, người đăng và thời điểm.\n3. Đọc thông báo chỉ đổi trạng thái đã đọc của đúng tài khoản.\n4. Không có dữ liệu thì hiển thị rỗng; có phân trang; kênh ngoài web theo D08.",
+      "FE: Danh sách, chi tiết và chưa đọc.\nBE: Lọc người nhận theo tòa/vai trò, read receipt và phân trang."
+    ],
+    [
+      "US-028",
+      "HR-01",
+      "Quản lý nhân sự",
+      "Là quản lý nhân sự, tôi muốn phân công ca cho bảo vệ, lễ tân và lao công để bảo đảm mỗi ca có người phụ trách.",
+      "1. Chọn nhân viên, vị trí, ngày và thời gian bắt đầu/kết thúc hợp lệ.\n2. Không phân công cùng người vào các ca bị chồng thời gian theo D09.\n3. Lưu và đọc lại được lịch; sửa/hủy có lịch sử người thao tác.\n4. Người không có quyền nhân sự không được phân ca.",
+      "FE: Lịch trực và form phân công.\nBE: CRUD ca/phân công, kiểm tra chồng thời gian, quyền và lịch sử."
+    ],
+    [
+      "US-029",
+      "BILL-05",
+      "Đại diện hộ kinh doanh",
+      "Là đại diện hộ kinh doanh, tôi muốn thanh toán phí thuê hàng tháng để thực hiện nghĩa vụ theo hợp đồng thuê của mình.",
+      "1. Chỉ xem và yêu cầu thanh toán khoản phí thuộc căn/hợp đồng trong quyền.\n2. Hiển thị kỳ, khoản phí, số còn phải trả; số tiền do backend xác định.\n3. Theo phương thức tại D05; chỉ ghi nhận đã trả khi backend nhận xác nhận hợp lệ.\n4. Gửi lặp request/xác nhận không ghi nhận thu tiền hai lần.\n5. Thất bại hoặc hủy không tăng số đã trả; xem lại được kết quả và lịch sử.",
+      "FE: Danh sách/chi tiết phí thuê hàng tháng, thao tác trả tiền và trạng thái.\nBE: Kiểm tra quyền/số dư, ghi nhận giao dịch theo D05, chống lặp và cập nhật công nợ trong transaction."
+    ],
+    [
+      "US-030",
+      "REQ-01",
+      "Đại diện hộ kinh doanh",
+      "Là đại diện hộ kinh doanh, tôi muốn gửi đơn xin phép online để đề nghị ban quản lý xem xét mà không cần nộp giấy.",
+      "1. Chọn loại đơn và nhập trường bắt buộc theo D09; thiếu/sai thì không gửi được.\n2. Gửi thành công có mã đơn, thời điểm và trạng thái ban đầu.\n3. Chỉ xem được đơn của mình và kết quả xử lý có lý do.\n4. Người tiếp nhận/duyệt, chuyển trạng thái và tệp đính kèm được chốt tại D09.",
+      "FE: Form loại đơn, danh sách và chi tiết theo dõi.\nBE: Validation theo loại, lưu đơn/lịch sử, quyền xem và workflow duyệt theo D09."
+    ],
+    [
+      "US-031",
+      "FDBK-01",
+      "Đại diện căn hộ",
+      "Là đại diện căn hộ, tôi muốn gửi phản ánh tới ban quản lý để đề nghị xử lý vấn đề liên quan đến nơi ở.",
+      "1. Nhập tiêu đề, nội dung và căn/khu vực liên quan trong quyền.\n2. Thiếu nội dung hoặc dữ liệu không hợp lệ thì báo lỗi và không lưu.\n3. Gửi thành công có mã phản ánh, thời điểm và trạng thái mới.\n4. Nếu cho đính kèm ảnh, kiểm tra loại/kích thước và quyền đọc theo D10.",
+      "FE: Form phản ánh, kết quả gửi và upload nếu có.\nBE: Tạo phản ánh, validation, quyền căn hộ và kiểm tra tệp theo D10."
+    ],
+    [
+      "US-032",
+      "FDBK-01",
+      "Đại diện căn hộ",
+      "Là đại diện căn hộ, tôi muốn theo dõi phản ánh mình đã gửi để biết tiến độ và phản hồi từ ban quản lý.",
+      "1. Xem danh sách/chi tiết phản ánh thuộc quyền của mình.\n2. Hiển thị trạng thái, lịch sử thay đổi và phản hồi được phép công khai.\n3. Không đọc được phản ánh hoặc ghi chú nội bộ ngoài quyền bằng cách đổi ID.\n4. Không có phản ánh thì hiển thị rỗng; trạng thái theo quy trình D10.",
+      "FE: Danh sách/chi tiết, tiến độ và phản hồi.\nBE: Lọc theo người gửi/quyền, lịch sử và tách nội dung nội bộ nếu áp dụng."
+    ],
+    [
+      "US-033",
+      "FDBK-02",
+      "Admin",
+      "Là admin, tôi muốn tiếp nhận và phân công phản ánh để mỗi yêu cầu có người chịu trách nhiệm xử lý.",
+      "1. Xem và lọc phản ánh trong phạm vi quản lý theo trạng thái/khu vực.\n2. Chọn người phụ trách có quyền phù hợp và cập nhật trạng thái tiếp nhận.\n3. Phản ánh không tồn tại hoặc ngoài quyền bị từ chối.\n4. Ghi nhận người tiếp nhận/phân công và thời điểm theo D10.",
+      "FE: Danh sách xử lý và form phân công.\nBE: Truy vấn, quyền admin, phân công và lịch sử trạng thái."
+    ],
+    [
+      "US-034",
+      "FDBK-02",
+      "Admin + Kỹ thuật viên",
+      "Là admin hoặc kỹ thuật viên, tôi muốn cập nhật kết quả phản ánh được phân công để người gửi biết tiến độ và kết quả xử lý.",
+      "1. Admin thao tác trong phạm vi quản lý; kỹ thuật viên chỉ cập nhật phản ánh đã được giao.\n2. Chỉ chuyển trạng thái hợp lệ theo D10; kỹ thuật viên không tự đổi người phụ trách.\n3. Khi kết thúc có kết quả/lý do; giữ người thực hiện, thời điểm và lịch sử phản hồi.\n4. Cập nhật từ trạng thái cũ bị xử lý rõ, không ghi đè âm thầm; quyền đóng/mở lại theo D10.",
+      "FE: Danh sách được giao, phản hồi và trạng thái.\nBE: Policy theo phân công, chuyển trạng thái, kiểm soát cập nhật đồng thời và audit."
+    ],
+    [
+      "US-035",
+      "VISIT-01",
+      "Nhân viên trực",
+      "Là nhân viên trực, tôi muốn ghi nhận khách vào và ra tòa nhà để theo dõi lượt khách trong ca được phân công.",
+      "1. Ghi thông tin tối thiểu theo D09, căn/người tiếp đón và thời điểm vào.\n2. Ghi ra đúng lượt đang mở; thời điểm ra không trước lúc vào.\n3. Gửi lại cùng thao tác không tạo hai lượt vào/ra.\n4. Quyền xem lịch sử và thời hạn lưu theo D09; quản lý nhân sự không mặc định được xem mọi dữ liệu khách.",
+      "FE: Form vào/ra và danh sách lượt trong quyền.\nBE: Validation, chống lặp, quyền theo khu vực/ca nếu áp dụng và lịch sử."
+    ],
+    [
+      "US-036",
+      "AUTH-03",
+      "Admin",
+      "Là admin, tôi muốn cấp tài khoản cá nhân cho người sử dụng để người được phép có thể đăng nhập và nhận quyền phù hợp.",
+      "1. Chọn người dùng và định danh duy nhất; thông tin thiếu hoặc trùng bị từ chối.\n2. Không mở đăng ký công khai; mật khẩu không lưu dạng rõ trong DB/log.\n3. Kích hoạt hoặc mật khẩu ban đầu và đổi mật khẩu lần đầu theo D03.\n4. Tạo tài khoản không tự gán mọi quyền hoặc căn hộ; cấp quyền/liên kết là thao tác riêng.",
+      "FE: Form cấp tài khoản và kết quả cấp.\nBE: Tạo định danh duy nhất, lưu mật khẩu băm và quy trình kích hoạt theo D03."
+    ],
+    [
+      "US-037",
+      "USER-02",
+      "Admin",
+      "Là admin, tôi muốn liên kết hoặc thu hồi người đại diện của căn hộ để người đúng trách nhiệm quản lý dữ liệu căn hộ.",
+      "1. Chọn tài khoản, căn hộ và thời gian hiệu lực hợp lệ.\n2. Bản đầu đề xuất một người đại diện chính đang hiệu lực cho mỗi căn; một người có thể đại diện nhiều căn (D01).\n3. Đổi đại diện phải kết thúc liên kết cũ, tạo liên kết mới nhất quán và giữ lịch sử.\n4. Sau thu hồi, tài khoản cũ không còn quyền qua liên kết đó; hồ sơ sở hữu không tự bị thay đổi.",
+      "FE: Form liên kết/đổi đại diện và lịch sử.\nBE: Transaction quản lý liên kết, ràng buộc hiệu lực, kiểm tra quyền mỗi request và audit."
+    ],
+    [
+      "US-038",
+      "USER-03",
+      "Admin",
+      "Là admin, tôi muốn khóa hoặc mở khóa tài khoản để ngăn hoặc khôi phục truy cập khi cần.",
+      "1. Chỉ admin có quyền mới thay đổi tài khoản trong phạm vi quản lý.\n2. Tài khoản khóa không đăng nhập và không tiếp tục gọi API qua phiên cũ.\n3. Lưu lý do, người thay đổi và thời điểm; không xóa dữ liệu nghiệp vụ đã tạo.\n4. Không khóa tài khoản quản trị cuối cùng đang hoạt động theo phạm vi chốt tại D01.",
+      "FE: Trạng thái tài khoản, thao tác khóa/mở và xác nhận.\nBE: Cập nhật trạng thái, chặn/thu hồi phiên, kiểm tra admin cuối và audit."
+    ],
+    [
+      "US-039",
+      "ROOM-03",
+      "Admin",
+      "Là admin, tôi muốn quản lý danh mục tòa, tầng và căn hộ để các hồ sơ cư dân và hóa đơn tham chiếu đúng căn.",
+      "1. Tạo/sửa đúng quan hệ tòa–tầng–căn; mã căn không trùng trong cùng tòa.\n2. Diện tích và trường bắt buộc hợp lệ theo D02.\n3. Không xóa cứng căn đang được hóa đơn/cư trú tham chiếu; dùng ngừng sử dụng theo quy tắc.\n4. Có danh sách lọc/phân trang; chỉ admin đúng phạm vi cập nhật được.",
+      "FE: Danh sách và form cấu trúc tòa/căn.\nBE: CRUD danh mục, FK/unique/check, validation và chặn xóa dữ liệu đang được dùng."
+    ],
+    [
+      "US-040",
+      "BILL-06",
+      "Admin",
+      "Là admin, tôi muốn quản lý biểu phí và kỳ thu để tính các khoản phải thu theo quy tắc thống nhất.",
+      "1. Biểu phí có loại phí, đơn vị, giá/quy tắc và thời gian hiệu lực theo D04.\n2. Kỳ thu có thời gian và hạn trả hợp lệ; không cấu hình chồng hiệu lực trái quy tắc.\n3. Sửa giá không làm đổi đơn giá snapshot của hóa đơn đã phát hành.\n4. Lưu người cập nhật và lịch sử; thu phí thuê/sửa chữa chỉ khi module liên quan được triển khai.",
+      "FE: Form biểu phí và kỳ thu.\nBE: Validation giá/đơn vị/thời gian, version biểu phí và audit."
+    ],
+    [
+      "US-041",
+      "BILL-07",
+      "Admin",
+      "Là admin, tôi muốn lập và phát hành hóa đơn theo kỳ để căn hộ có khoản phải thu rõ ràng trước khi thanh toán.",
+      "1. Chọn căn, kỳ và dịch vụ; chỉ số/biểu phí cần thiết phải có và hợp lệ.\n2. Backend tính từng dòng và tổng tiền, lưu snapshot tên/giá/căn cứ tính phí.\n3. Lưu hóa đơn và các dòng trong cùng transaction; lỗi thì không lưu dở dang.\n4. Gửi lặp không phát hành trùng cùng khoản phí/căn/kỳ theo khóa nghiệp vụ tại D04.\n5. Quy tắc chốt/sửa/hủy và xử lý người đại diện thay đổi được chốt tại D04/D05.",
+      "FE: Tạo/xem trước và phát hành hóa đơn.\nBE: Tính tiền, snapshot, transaction, khóa chống trùng và quyền theo tòa/căn."
+    ],
+    [
+      "US-042",
+      "BILL-08",
+      "Đại diện căn hộ + Đại diện hộ kinh doanh",
+      "Là đại diện căn hộ hoặc đại diện hộ kinh doanh, tôi muốn xem hóa đơn và lịch sử thanh toán thuộc quyền mình để kiểm tra các khoản phải trả và đã trả.",
+      "1. Chỉ xem hóa đơn thuộc căn/hợp đồng có quyền theo D01 và chính sách lịch sử D04.\n2. Hiển thị từng khoản phí, kỳ, tổng phải trả, đã xác nhận, dư nợ và hạn trả.\n3. Khoản chờ xác nhận hiển thị riêng, chưa trừ vào số còn nợ.\n4. Có danh sách rỗng và phân trang; đổi ID không truy cập hóa đơn ngoài quyền.",
+      "FE: Danh sách/chi tiết hóa đơn và giao dịch.\nBE: Truy vấn theo quyền căn/hợp đồng và trạng thái thanh toán; không tin userId từ client."
+    ],
+    [
+      "US-043",
+      "BILL-09",
+      "Admin",
+      "Là admin, tôi muốn xác nhận và đối chiếu khoản thanh toán để công nợ phản ánh đúng số tiền thực nhận.",
+      "1. Kiểm tra khoản thu, hóa đơn, số tiền và chứng cứ/mã tham chiếu theo phương thức D05.\n2. Chỉ người có quyền mới xác nhận khoản thu thủ công; nếu cổng online thì backend xác minh thông báo từ cổng.\n3. Xác nhận lặp hoặc request đồng thời không ghi nhận thu tiền hai lần.\n4. Cập nhật giao dịch và dư nợ nhất quán trong transaction; lỗi thì rollback.\n5. Lưu người/nguồn xác nhận, thời điểm và lý do từ chối; trả thiếu/thừa/hoàn theo D05.",
+      "FE: Danh sách chờ xác nhận, chi tiết và đối soát.\nBE: Xác minh khoản thu, unique tham chiếu/idempotency, transaction và audit."
+    ],
+    [
+      "US-044",
+      "REQ-02",
+      "Admin",
+      "Là admin, tôi muốn duyệt hoặc từ chối đơn xin phép của hộ kinh doanh để người gửi nhận được kết quả xử lý rõ ràng.",
+      "1. Chỉ thấy và xử lý đơn trong phạm vi quản lý.\n2. Chỉ chuyển trạng thái đúng quy trình; từ chối phải có lý do.\n3. Giữ người duyệt, thời điểm, kết quả và lịch sử; người gửi xem được kết quả của mình.\n4. Loại đơn, điều kiện xét và quyền mở lại theo D09; không gộp đơn xin phép với phản ánh.",
+      "FE: Hàng đợi, chi tiết đơn và form kết quả.\nBE: Workflow xét duyệt, policy, lịch sử và thông báo kết quả nếu áp dụng."
+    ]
+  ],
+  "decisions": [
+    [
+      "D01",
+      "Actors; USER-01/02/03",
+      "Phạm vi tòa/căn/hộ, vai trò kiêm nhiệm, đại diện chính và quyền xem lịch sử khi thu hồi?",
+      "Đề xuất 6 actor. All là nhóm tất cả tài khoản được cấp, không phải role cho quyền toàn hệ thống. Không dùng chung tài khoản theo căn/đội.",
+      ""
+    ],
+    [
+      "D02",
+      "ROOM-01/02/03; USER-02",
+      "Trường hộ dân cư, cơ chế duyệt, trạng thái sử dụng; có theo dõi mua/bán không?",
+      "Đại diện cập nhật hộ trong quyền; admin quản lý sở hữu và liên kết. Nếu đề tài cần quy trình mua bán, đặc tả riêng trước khi thêm hợp đồng/giao dịch.",
+      ""
+    ],
+    [
+      "D03",
+      "AUTH-01/02/03/04",
+      "Session/token, định danh đăng nhập, cách cấp mật khẩu/kích hoạt, kênh quên mật khẩu?",
+      "AUTH-03 dành cho tạo tài khoản; AUTH-04 cho quên mật khẩu để sửa ID trùng. Logout phiên hiện tại. Chưa chốt email/SMS hay cổng kích hoạt.",
+      ""
+    ],
+    [
+      "D04",
+      "UTIL-01; BILL-06/07/08",
+      "Kỳ thu, biểu giá, làm tròn, thay đồng hồ, khóa chống trùng, sửa/hủy hóa đơn, quyền lịch sử?",
+      "Bổ sung biểu phí, phát hành và xem hóa đơn để hoàn chỉnh đầu vào thanh toán. Phải chốt quyền xem hóa đơn cũ khi đổi đại diện; không tự xóa lịch sử.",
+      ""
+    ],
+    [
+      "D05",
+      "BILL-01/02/03/04/05/09",
+      "Thủ công hay cổng online? Ai xác nhận? Thu thiếu/thừa, hoàn/hủy và đối soát?",
+      "Thêm bước xác nhận/đối soát. Browser gửi thành công chưa đủ xác nhận thu tiền; chưa chọn nhà cung cấp hoặc mặc định có tích hợp thật.",
+      ""
+    ],
+    [
+      "D06",
+      "PARK-01/02/03; ACT-06",
+      "Nhập tay/thiết bị, mô hình ô/sức chứa, loại xe, giá vé và quyền gia hạn/hủy vé?",
+      "Bản đầu đề xuất nhập tay, nhân viên trực vận hành. Map là Nice to have và cần dữ liệu ô; không thêm đặt chỗ, OCR hoặc điều khiển barie.",
+      ""
+    ],
+    [
+      "D07",
+      "TECH-01/02/03; ALRT-02/03",
+      "Nguồn sự kiện, trạng thái, ai xác nhận cháy, vùng nhận và kênh cảnh báo?",
+      "Tách thiết bị báo cháy lỗi/bảo trì khỏi sự kiện cháy thật. Chưa chốt thiết bị thật hay mô phỏng; không bao gồm điều khiển thiết bị.",
+      ""
+    ],
+    [
+      "D08",
+      "ANNC-01/02; ALRT-01",
+      "Đối tượng nhận, kênh gửi, nhắc trước hạn bao lâu, sửa/thu hồi sau đăng?",
+      "Mở người nhận cho cả nhân viên/hộ kinh doanh theo đối tượng admin chọn. Không phát mọi thông báo cho mọi người; job cần chống gửi trùng.",
+      ""
+    ],
+    [
+      "D09",
+      "HR-01; VISIT-01; REQ-01/02; BILL-05",
+      "Ca trực, quyền bảo vệ/lễ tân, dữ liệu khách, loại đơn và điều kiện duyệt; hợp đồng thuê?",
+      "Quản lý nhân sự phân ca, nhân viên trực ghi nhận khách. Admin duyệt đơn là đề xuất cho MVP; đơn xin phép tách khỏi phản ánh. Dữ liệu khách chỉ thu tối thiểu cần dùng.",
+      ""
+    ],
+    [
+      "D10",
+      "FDBK-01/02",
+      "Ảnh đính kèm, danh mục phản ánh, chuyển trạng thái, quyền đóng/mở lại?",
+      "Admin tiếp nhận/phân công; kỹ thuật viên cập nhật việc được giao. Luồng đề xuất: mới → tiếp nhận → đang xử lý → đã xử lý hoặc từ chối có lý do.",
+      ""
+    ],
+    [
+      "D11",
+      "Features: Priority/Status",
+      "Nhóm chấp thuận các tính năng bổ sung chưa? WYP trong bảng gốc có nghĩa gì?",
+      "Giữ ưu tiên 30 feature nguồn. 7 feature mới có mức ưu tiên đề xuất ghi rõ; Status WYP giữ nguyên như nguồn, không suy ra đã làm/đã xong.",
+      ""
+    ]
+  ],
+  "changes": [
+    [
+      "CH-01",
+      "ID Authentication",
+      "Ảnh mới có hai dòng AUTH-03.",
+      "AUTH-03: tạo tài khoản; AUTH-04: quên mật khẩu.",
+      "Mỗi feature cần ID duy nhất. US-003 giữ Story ID nhưng trỏ sang AUTH-04.",
+      "Sửa ID trong bản nháp"
+    ],
+    [
+      "CH-02",
+      "Phân quyền và gán căn",
+      "Bản cũ AUTH-04 là phân quyền; ảnh mới dùng USER-01 và USER-02.",
+      "Dùng USER-01 phân quyền và USER-02 liên kết/thu hồi đại diện.",
+      "Theo ảnh mới; tránh nhầm sở hữu thực tế với quyền truy cập tài khoản.",
+      "Theo ảnh mới + làm rõ"
+    ],
+    [
+      "CH-03",
+      "Chủ nhà và số tài khoản",
+      "Mỗi nhà 1 tài khoản.",
+      "Đại diện căn hộ là vai trò cá nhân liên kết căn; đề xuất 1 đại diện chính/căn.",
+      "Một người có thể có nhiều căn; đổi đại diện cần thu hồi quyền và giữ audit.",
+      "Đề xuất, xem D01"
+    ],
+    [
+      "CH-04",
+      "Số tài khoản nhân viên",
+      "Admin/nhân sự/kỹ thuật đều ghi số lượng 1.",
+      "Mỗi người thao tác một tài khoản riêng; không giới hạn đúng 1 người.",
+      "Không đồng nhất số vai trò với số tài khoản và không dùng chung mật khẩu.",
+      "Đề xuất"
+    ],
+    [
+      "CH-05",
+      "Actor kinh doanh",
+      "Người kinh doanh / Hộ kinh doanh dùng khác nhau.",
+      "Thống nhất Đại diện hộ kinh doanh; liên kết với cơ sở/hộ.",
+      "Phân biệt cá nhân đăng nhập với đơn vị kinh doanh.",
+      "Đề xuất"
+    ],
+    [
+      "CH-06",
+      "Actor vận hành",
+      "Admin ghi xe ra vào; quản lý nhân sự quản lý khách.",
+      "Thêm Nhân viên trực; admin cấu hình/giám sát, nhân sự phân ca.",
+      "Gắn nghiệp vụ hằng ngày với người thực hiện, quyền cụ thể theo ca/khu vực.",
+      "Đề xuất, xem D06/D09"
+    ],
+    [
+      "CH-07",
+      "ROOM-02",
+      "Trạng thái mua nhà.",
+      "Trạng thái sử dụng và hồ sơ sở hữu; mua/bán nếu cần phải đặc tả riêng.",
+      "Tránh dùng một nhãn để biểu diễn đang ở, sở hữu và tiến độ mua bán.",
+      "Đề xuất, xem D02"
+    ],
+    [
+      "CH-08",
+      "Hóa đơn–thanh toán",
+      "Có công nợ và thanh toán nhưng thiếu lập/xem hóa đơn, biểu phí và xác nhận thu.",
+      "Thêm BILL-06/07/08/09.",
+      "Khép kín luồng chỉ số/biểu phí → hóa đơn → thanh toán → công nợ.",
+      "Bổ sung, ưu tiên đề xuất"
+    ],
+    [
+      "CH-09",
+      "Nền dữ liệu/tài khoản",
+      "Có đăng nhập, gán căn nhưng thiếu quản lý trạng thái tài khoản và danh mục căn.",
+      "Thêm USER-03 và ROOM-03.",
+      "Cần khóa quyền truy cập và có căn hợp lệ trước khi liên kết/lập hóa đơn.",
+      "Bổ sung, ưu tiên đề xuất"
+    ],
+    [
+      "CH-10",
+      "Đơn xin phép",
+      "Chỉ có người kinh doanh gửi đơn.",
+      "Thêm REQ-02 cho admin xét duyệt/từ chối.",
+      "Cần phía xử lý để người gửi nhận được kết quả; vẫn Nice to have.",
+      "Bổ sung, ưu tiên đề xuất"
+    ],
+    [
+      "CH-11",
+      "Thông báo/cảnh báo",
+      "Nhận thông báo chỉ Chủ nhà; một số cảnh báo ghi All.",
+      "Người nhận theo tòa/vai trò/liên kết; All không có nghĩa công khai toàn bộ.",
+      "Nhân viên/hộ kinh doanh có thể cần thông báo, nhưng không nhận ngoài phạm vi.",
+      "Đề xuất, xem D08"
+    ],
+    [
+      "CH-12",
+      "Phản ánh",
+      "Admin tiếp nhận và xử lý mọi bước.",
+      "Admin tiếp nhận/phân công; kỹ thuật viên xử lý phần được giao.",
+      "Bổ sung rõ ai cập nhật tiến độ; không cấp kỹ thuật viên quyền với mọi phản ánh.",
+      "Đề xuất, xem D10"
+    ],
+    [
+      "CH-13",
+      "Nhóm tính năng",
+      "Nhiều dòng chưa có ID/Module; status WYP chưa rõ.",
+      "Điền ID/Module nhất quán, giữ WYP như nguồn và giữ ưu tiên nguồn.",
+      "Theo dõi feature/story đầy đủ mà không suy đoán trạng thái thực hiện.",
+      "Chuẩn hóa trong bản nháp"
+    ],
+    [
+      "CH-14",
+      "Phạm vi phần mở rộng",
+      "Nhân sự, thuê, xin phép, khách, map/thang máy/báo cháy là Nice to have.",
+      "Giữ Nice to have, chưa thêm OCR, barie, IoT thật hay hợp đồng mua bán.",
+      "Tránh mở rộng không cần thiết với 2 backend và gần 3 tháng.",
+      "Giữ ưu tiên nguồn"
+    ]
+  ]
+}

@@ -4,14 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --env-file=.env src/server.mjs",
+    "db:check": "node --env-file=.env db-check.mjs",
+    "db:setup": "node --env-file=.env scripts/db.mjs setup",
+    "db:lab:setup": "node --env-file=.env scripts/db.mjs lab-setup",
+    "db:lab:read": "node --env-file=.env scripts/db.mjs lab-read",
+    "db:lab:transaction": "node --env-file=.env practice/relations-lab/transaction-demo.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "express": "^5.2.1",
     "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.19.1",
+    "typescript": "^7.0.2"
   }
 }

@@ -2,7 +2,7 @@
 
 Tài liệu mô tả hành vi hiện tại; đề xuất thay đổi nằm riêng ở cuối.
 
-Nội dung được đối chiếu với routes, middleware, controller và service hiện tại. Các ví dụ là dữ liệu minh họa, không khẳng định sản phẩm tương ứng đang có trong database. Việc viết tài liệu không thực hiện request hay thay đổi database.
+Nội dung được đối chiếu với routes, middleware, controller, service và schema `db/01-schema.sql`. Các ví dụ là dữ liệu minh họa, không khẳng định sản phẩm tương ứng đang có trong database. Việc đối chiếu tài liệu không thay cho kiểm thử HTTP hoặc truy vấn database thực tế.
 
 ## 1. Phạm vi
 
@@ -34,15 +34,15 @@ Bảy endpoint được mô tả:
 
 Các truy vấn sản phẩm chọn hoặc trả về ba trường:
 
-- `id`: ID sản phẩm.
-- `name`: tên sản phẩm.
-- `price`: giá sản phẩm.
+- `id`: number nguyên, ID sản phẩm được PostgreSQL sinh bằng `INTEGER GENERATED ALWAYS AS IDENTITY`, có khóa chính.
+- `name`: string khác `null`, được lưu bằng `VARCHAR(50)`; database từ chối chuỗi rỗng hoặc chỉ có dấu cách.
+- `price`: number nguyên khác `null`, từ `0` đến `2147483647`, đơn vị VND nguyên đồng; cột database là `INTEGER` với `CHECK (price >= 0)`.
 
 Trong tài liệu, **Product** là object có ba trường này. **ProductPrice** là object có hai trường `id` và `price`.
 
-Controller gửi các giá trị lấy từ database trực tiếp, không chuyển kiểu trước khi trả JSON. Kiểu JSON thực tế của `id`, `name`, `price`, cũng như khả năng nhận `null`, chưa được xác minh bằng schema database hoặc response thực tế trong lần lập tài liệu này. Giới hạn validation đầu vào không đủ để khẳng định toàn bộ kiểu dữ liệu đầu ra.
+API sử dụng database `mini_shop`, với bảng `public.products` được định nghĩa trong `db/01-schema.sql`. Controller gửi trực tiếp các giá trị database; bộ chuyển kiểu mặc định của `pg` trả `INTEGER` thành number và `VARCHAR` thành string. Cả ba cột đều không nhận `null` theo schema này.
 
-Ví dụ dưới đây minh họa Product trong trường hợp `id` và `price` được trả dưới dạng number, `name` dưới dạng string:
+Ví dụ Product:
 
 ```json
 {
@@ -54,7 +54,7 @@ Ví dụ dưới đây minh họa Product trong trường hợp `id` và `price`
 
 Các response thành công gửi trực tiếp object hoặc mảng được mô tả. Hiện không có object bọc chung như `{ "data": ... }`.
 
-Đơn vị tiền của `price` chưa được khai báo trong các file source đã đối chiếu.
+Database `mini_shop_relations_lab` có mô hình sáu bảng riêng cho bài quan hệ và transaction. Không dùng schema đó thay cho schema API: sản phẩm lab yêu cầu `category_id`, trong khi API hiện chỉ tạo sản phẩm bằng `name` và `price`.
 
 ### 2.3. Quy tắc ID dùng chung
 
@@ -232,7 +232,7 @@ Ví dụ đường dẫn: `GET /products/1`.
 
 Ví dụ đường dẫn: `GET /products/1/price`.
 
-**Thành công:** Status `200`; body là một ProductPrice, gồm `id` và `price`, không có `name`. Kiểu đầu ra cần xác minh như mục 2.2.
+**Thành công:** Status `200`; body là một ProductPrice, gồm `id` và `price`, không có `name`. Kiểu đầu ra theo mục 2.2.
 
 Ví dụ minh họa:
 
@@ -346,7 +346,7 @@ Ví dụ đường dẫn: `DELETE /products/1`.
 
 ## 10. Điểm cần làm rõ và đề xuất
 
-Các nội dung dưới đây là nhận xét và đề xuất; chưa được triển khai trong ứng dụng.
+Các nội dung dưới đây ghi nhận điểm cần làm rõ và đề xuất thay đổi. Các đề xuất được nêu riêng trong từng mục.
 
 ### 10.1. Cấu trúc lỗi chưa thống nhất
 
@@ -362,12 +362,11 @@ Các nội dung dưới đây là nhận xét và đề xuất; chưa được t
 - Ảnh hưởng: người đọc thông báo có thể hiểu nhầm rằng hai đầu mút bằng nhau bị từ chối.
 - Đề xuất: điều chỉnh thông báo để mô tả đúng quy tắc `minPrice <= maxPrice` đang được áp dụng.
 
-### 10.3. Kiểu dữ liệu đầu ra và đơn vị giá cần xác minh
+### 10.3. Schema và kiểu dữ liệu đầu ra
 
-- Hiện tại: controller gửi trực tiếp các giá trị của row từ database; các file đã đọc chưa cung cấp schema hoặc response thực tế để xác nhận đầy đủ kiểu JSON và nullability. Đơn vị tiền chưa được khai báo.
-- Vị trí: `src/services/product.service.mjs` và `src/controllers/product.controller.mjs`.
-- Ảnh hưởng: client cần kiểu JSON và đơn vị rõ ràng để hiển thị, tính toán hoặc định dạng giá.
-- Đề xuất: đối chiếu schema hoặc response đã quan sát, rồi ghi kiểu, nullability và đơn vị đã xác nhận vào mục 2.2. Nếu chọn chuyển kiểu trong ứng dụng, cần đánh giá ảnh hưởng tới client trước.
+- Schema khôi phục cho database `mini_shop` đã được ghi trong `db/01-schema.sql`; kiểu đầu ra và quy ước VND được mô tả tại mục 2.2.
+- Vị trí: `db/01-schema.sql`, `src/services/product.service.mjs` và `src/controllers/product.controller.mjs`.
+- Khi dùng database khác hoặc sửa kiểu cột, cần đối chiếu lại schema và response thực tế trước khi cập nhật hợp đồng.
 
 ### 10.4. Danh sách chưa có thông tin tổng số trang
 
@@ -396,5 +395,6 @@ Các nội dung dưới đây là nhận xét và đề xuất; chưa được t
 - [Error handler](../src/middlewares/error-handler.middleware.mjs)
 - [AppError](../src/errors/app-error.mjs)
 - [Service sản phẩm](../src/services/product.service.mjs)
+- [Schema database của API](../db/01-schema.sql)
 
-Quy tắc parser JSON strict được đối chiếu với dependency đang cài tại `node_modules/body-parser/lib/types/json.js`. Chưa chạy server, kiểm thử HTTP hoặc truy vấn database để xác minh tài liệu này.
+Quy tắc parser JSON strict được đối chiếu với dependency đang cài tại `node_modules/body-parser/lib/types/json.js`. Các mô tả kiểu dữ liệu dựa trên schema đã ghi; phần đối chiếu tài liệu này không khẳng định kết quả chạy server, kiểm thử HTTP hoặc database.
