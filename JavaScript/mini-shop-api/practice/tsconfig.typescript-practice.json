@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "noEmit": false,
+        "noEmitOnError": true,
+        "target": "es2022",
+        "module": "nodenext",
+        "rootDir": "./relations-lab",
+        "outDir": "./dist"
+    },
+    "files": [
+        "./relations-lab/typescript-practice.ts",
+    ]
+}

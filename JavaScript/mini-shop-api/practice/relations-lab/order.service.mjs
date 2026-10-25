@@ -1,4 +1,3 @@
-import { appendFile } from 'node:fs';
 import { AppError } from '../../src/errors/app-error.mjs';
 
 export async function createOrder(pool, input) {
@@ -38,7 +37,7 @@ export async function createOrder(pool, input) {
             throw new AppError(
                 400,
                 'DUPLICATE_PRODUCT_ID',
-                `Duplicate product ID: ${items.productId}`,
+                `Duplicate product ID: ${item.productId}`,
             );
         }
         seenProductIds.add(item.productId);
