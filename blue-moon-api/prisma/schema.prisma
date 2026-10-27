@@ -9,6 +9,7 @@ generator client {
   moduleFormat           = "esm"
   generatedFileExtension = "ts"
   importFileExtension    = "js"
+  previewFeatures        = ["partialIndexes"]
 }
 
 datasource db {
@@ -19,6 +20,8 @@ model Apartment {
   id              String @id @default(uuid()) @map("apartment_id")
   apartmentNumber String @unique @map("apartment_number")
   floorNumber     Int    @map("floor_number")
+
+  ownershipAssignments OwnershipAssignment[]
 
   @@map("apartments")
 }
@@ -40,6 +43,33 @@ model UserAccount {
   roleId String @map("role_id")
   role   Role   @relation(fields: [roleId], references: [id], onDelete: Restrict)
 
+  ownershipAssignments        OwnershipAssignment[] @relation("OwnershipHolder")
+  createdOwnershipAssignments OwnershipAssignment[] @relation("OwnershipCreator")
+
   @@index([roleId])
   @@map("user_accounts")
+}
+
+model OwnershipAssignment {
+  id          String @id @default(uuid()) @map("assignment_id")
+  apartmentId String @map("apartment_id")
+  ownerId     String @map("owner_id")
+  createdById String @map("created_by_id")
+
+  effectiveFrom  DateTime  @default(now()) @map("effective_from") @db.Timestamptz(3)
+  effectiveUntil DateTime? @map("effective_until") @db.Timestamptz(3)
+
+  assignmentReason String? @map("assignment_reason")
+  endingReason     String? @map("ending_reason")
+
+  apartment Apartment @relation(fields: [apartmentId], references: [id], onDelete: Restrict)
+
+  owner UserAccount @relation("OwnershipHolder", fields: [ownerId], references: [id], onDelete: Restrict)
+
+  createdBy UserAccount @relation("OwnershipCreator", fields: [createdById], references: [id], onDelete: Restrict)
+
+  @@unique([apartmentId], map: "ownership_one_open_per_apartment", where: { effectiveUntil: null })
+  @@index([ownerId, effectiveUntil])
+  @@index([createdById])
+  @@map("ownership_assignments")
 }

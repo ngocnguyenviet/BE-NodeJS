@@ -4,7 +4,7 @@ async function main(): Promise<void> {
     try {
         const roleSeeds = [
             { code: 'HOMEOWNER', name: 'Homeowner' },
-            { code: 'ADMIN', name: 'Adminstrator' },
+            { code: 'ADMIN', name: 'Administrator' },
             { code: 'HR_MANAGER', name: 'HR Manager' },
             { code: 'BUSINESS_OPERATOR', name: 'Business Operator' },
             { code: 'TECHNICIAN', name: 'Technician' },
@@ -24,7 +24,7 @@ async function main(): Promise<void> {
         const accountSeeds = [
             { username: 'homeowner_a', displayName: 'Homeowner A', code: 'HOMEOWNER' },
             { username: 'homeowner_b', displayName: 'Homeowner B', code: 'HOMEOWNER' },
-            { username: 'admin_a', displayName: 'Adminstrator A', code: 'ADMIN' },
+            { username: 'admin_a', displayName: 'Administrator A', code: 'ADMIN' },
         ];
 
         for (const data of accountSeeds) {
