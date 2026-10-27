@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider               = "prisma-client"
+  output                 = "../src/generated/prisma"
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Apartment {
+  id              String @id @default(uuid()) @map("apartment_id")
+  apartmentNumber String @unique @map("apartment_number")
+  floorNumber     Int    @map("floor_number")
+
+  @@map("apartments")
+}
+
+model Role {
+  id      String        @id @default(uuid()) @map("role_id")
+  code    String        @unique @map("role_code")
+  name    String        @map("role_name")
+  account UserAccount[]
+
+  @@map("roles")
+}
+
+model UserAccount {
+  id          String @id @default(uuid()) @map("account_id")
+  username    String @unique
+  displayName String @map("display_name")
+
+  roleId String @map("role_id")
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Restrict)
+
+  @@index([roleId])
+  @@map("user_accounts")
+}
