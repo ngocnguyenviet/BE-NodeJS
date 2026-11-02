@@ -1,5 +1,6 @@
 import { prisma } from '../db/prisma.js';
 import { transferOwnership } from '../services/ownership.service.js';
+import { OwnershipError } from '../errors/ownership.error.js';
 
 async function main(): Promise<void> {
     try {
@@ -63,6 +64,11 @@ async function main(): Promise<void> {
 }
 
 main().catch((error: unknown) => {
-    console.error('Ownership transfer failed', error);
+    if (error instanceof OwnershipError) {
+        console.error(`Ownership transfer rejected [${error.code}]: ${error.message}`);
+    } else {
+        console.error('Ownership transfer failed: ', error);
+    }
+
     process.exitCode = 1;
 });

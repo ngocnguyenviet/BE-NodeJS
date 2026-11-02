@@ -4,7 +4,7 @@ async function main(): Promise<void> {
     try {
         const owner = await prisma.userAccount.findUnique({
             where: {
-                username: 'homeowner_b',
+                username: 'homeowner_a',
             },
             select: {
                 id: true,

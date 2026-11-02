@@ -1,4 +1,4 @@
-import { Certificate } from 'crypto';
+
 import { prisma } from '../db/prisma.js';
 
 async function ensureOwnership(

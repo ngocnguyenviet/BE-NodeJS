@@ -35,10 +35,17 @@ model Role {
   @@map("roles")
 }
 
+enum AccountStatus {
+  ACTIVE
+  LOCKED
+}
+
 model UserAccount {
-  id          String @id @default(uuid()) @map("account_id")
-  username    String @unique
-  displayName String @map("display_name")
+  id           String        @id @default(uuid()) @map("account_id")
+  username     String        @unique
+  displayName  String        @map("display_name")
+  passwordHash String?       @map("password_hash")
+  status       AccountStatus @default(ACTIVE)
 
   roleId String @map("role_id")
   role   Role   @relation(fields: [roleId], references: [id], onDelete: Restrict)
